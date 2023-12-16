@@ -1,0 +1,202 @@
+PROJET DE JARDIN INTELLIGENT
+
+On utilisera :
+
+- Capteur d'humidité (Virtuel) : On récupère l'humidité dans le sol du jardin et on l'envoie sur un serveur MQTT. Les données seront récupérées par notre serveur NodeRed.
+
+- Meteo locale : On récupère les données de la météo locale via une API et celles-ci seront transmises a notre serveur NodeRed.
+
+On virtualise le jardin comme un jardin de tomates de 40m2. Et on virtualise un système d'irrigation en terme de fréquence d'irrigation et de quantité d'eau donnée aux pieds des tomates.
+
+
+-------------------- MISE EN PLACE DU SYSTEME --------------------
+
+Au moment de l'installation du système, l'utilisateur indique le type de sol :
+	- Un sol argileux nécessite une fréquence d'irrigation moindre et retiens mieux 	l'humidité
+	- Un sol sablonneux a tendance à plus drainer et nécessite une fréquence d'irrigation plus elevée.
+	
+Puis, il indique au système le type de tomate planté :
+	- Tomates cerises
+	- Tomates coeur de boeuf
+	- Tomates ananas
+
+Ainsi que le stade de croissance des plantes :
+	- Plantules
+	- Floraison
+	- Récolte
+
+
+A partir de ces données, le système calculera la croissance ainsi que les besoins en fréquence d'irrigation et en quantité d'eau.
+
+
+
+-------------------- DONNEES --------------------
+
+Voici les données intégrées au système :
+
+Le capteur d'humidité envoie les données toutes les 30 minutes au serveur MQTT.
+	Sol Argileux :
+        - Seuil "Humide" : > 85%
+        - Seuil "Normal" : 65% à 85%
+        - Seuil "Sec" : 45% à 65%
+        - Seuil "Caniculaire" : < 45%
+        
+	Sol Sablonneux :
+        - Seuil "Humide" : > 80%
+        - Seuil "Normal" : 60% à 80%
+        - Seuil "Sec" : 40% à 60%
+        - Seuil "Caniculaire" : < 40%
+
+On récupère la météo de la journée le matin à 5h.
+	- Humide : En dessous de 16°C
+	- Normale : Entre 16°C et 25°C
+	- Sec : Entre 25°C et 35°C
+	- Caniculaire : Au dessus de 35°C
+
+On calcule la moyenne de température de la journée grâce aux données récupérées de l'API.
+
+Pour les phases de croissance des tomates :
+	Tomates cerises :
+	- Plantules : 0 - 6 semaines après plantation
+	- Floraison : 6 - 11 semaines après plantation
+	- Récolte : 11 - 21 semaines après plantation
+	
+	Tomates coeur de boeuf :
+	- Plantules : 0 - 7 semaines après plantation
+	- Floraison : 7 - 13 semaines après plantation
+	- Récolte : 13 - 25 semaines après plantation
+	
+	Tomates ananas :
+	- Plantules : 0 - 7 semaines après plantation
+	- Floraison : 7 - 14 semaines après plantation
+	- Récolte : 14 - 28 semaines après plantation
+
+Pour la phase de plantule à floraison :
+Pour une fréquence de 1x/jour, l'irrigation se fait à 5h du matin. 
+Pour une fréquence de 2x/jour, l'irrigation se fera à 5h et 13h. 
+Pour une fréquence de 3x/jour, l'irrigation se fera à 5h, 13h et 21h.
+
+Pour la phase de floraison à récolte, les fréquences d'irrigation sont augmentées de 1x/jour. 
+
+
+
+-------------------- SCENARIOS --------------------
+
+Voici plusieurs scénarios pour un sol argileux :
+
+Tomates Cerises :
+
+    Scenario de Journée Normale :
+        Fréquence d'Irrigation : 1x/jour
+        Quantité d'Eau : 1,5L
+
+    Scenario de Journée Sèche :
+        Fréquence d'Irrigation : 1x/jour
+        Quantité d'Eau : 2L
+
+    Scenario de Journée Caniculaire :
+        Fréquence d'Irrigation : 1x/jour
+        Quantité d'Eau : 2,5L
+
+    Scenario de Journée Humide :
+        Arrêt de l'Irrigation : 24h
+        Reprise de l'Irrigation : Quand l'humidité du sol est inférieure à 65%
+
+Tomates Cœur de Bœuf :
+
+    Scenario de Journée Normale :
+        Fréquence d'Irrigation : 1x/jour
+        Quantité d'Eau : 2,5L
+
+    Scenario de Journée Sèche :
+        Fréquence d'Irrigation : 1x/jour
+        Quantité d'Eau : 3L
+
+    Scenario de Journée Caniculaire :
+        Fréquence d'Irrigation : 2x/jour
+        Quantité d'Eau : 3,5L
+
+    Scenario de Journée Humide :
+        Arrêt de l'Irrigation : 24h
+        Reprise de l'Irrigation : Quand l'humidité du sol est inférieure à 65%
+
+Tomates Ananas :
+
+    Scenario de Journée Normale :
+        Fréquence d'Irrigation : 1x/jour
+        Quantité d'Eau : 2,5L
+
+    Scenario de Journée Sèche :
+        Fréquence d'Irrigation : 2x/jour
+        Quantité d'Eau : 3,5L
+
+    Scenario de Journée Caniculaire :
+        Fréquence d'Irrigation : 2x/jour
+        Quantité d'Eau : 4,5L
+
+    Scenario de Journée Humide :
+        Arrêt de l'Irrigation : 24h
+        Reprise de l'Irrigation : Quand l'humidité du sol est inférieure à 65%
+
+
+--------------------------------------------------------------------
+Voici plusieurs scénarios pour un sol sablonneux :
+
+Tomates Cerises :
+
+    Scenario de Journée Normale :
+        Fréquence d'Irrigation : 1x/jour
+        Quantité d'Eau : 2L
+
+    Scenario de Journée Sèche :
+        Fréquence d'Irrigation : 2x/jour
+        Quantité d'Eau : 3L
+
+    Scenario de Journée Caniculaire :
+        Fréquence d'Irrigation : 2x/jour
+        Quantité d'Eau : 4L
+
+    Scenario de Journée Humide :
+        Arrêt de l'Irrigation : 24h
+        Reprise de l'Irrigation : Quand l'humidité du sol est inférieure à 60%
+
+Tomates Cœur de Bœuf :
+
+    Scenario de Journée Normale :
+        Fréquence d'Irrigation : 1x/jour
+        Quantité d'Eau : 2,5L
+
+    Scenario de Journée Sèche :
+        Fréquence d'Irrigation : 2x/jour
+        Quantité d'Eau : 3,5L
+
+    Scenario de Journée Caniculaire :
+        Fréquence d'Irrigation : 2x/jour
+        Quantité d'Eau : 4,5L
+
+    Scenario de Journée Humide :
+        Arrêt de l'Irrigation : 24h
+        Reprise de l'Irrigation : Quand l'humidité du sol est inférieure à 60%
+
+
+Tomates Ananas :
+
+    Scenario de Journée Normale :
+        Fréquence d'Irrigation : 1x/jour
+        Quantité d'Eau : 3,5L
+
+    Scenario de Journée Sèche :
+        Fréquence d'Irrigation : 2x/jour
+        Quantité d'Eau : 4,5L
+
+    Scenario de Journée Caniculaire :
+        Fréquence d'Irrigation : 2x/jour
+        Quantité d'Eau : 5,5L
+
+    Scenario de Journée Humide :
+        Arrêt de l'Irrigation : 24h
+        Reprise de l'Irrigation : Quand l'humidité du sol est inférieure à 60%
+
+
+
+

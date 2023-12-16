@@ -1,0 +1,1098 @@
+[
+    {
+        "id": "e945457b85248933",
+        "type": "tab",
+        "label": "Projet",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "4003fb74d4c52910",
+        "type": "group",
+        "z": "e945457b85248933",
+        "name": "Données Méteo",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "0a04f23a5d4c3218",
+            "b668badd4ed3a22f",
+            "8b51da7f8dacbdce",
+            "35fbf5d03eb8fe61"
+        ],
+        "x": 354,
+        "y": 519,
+        "w": 712,
+        "h": 82
+    },
+    {
+        "id": "d18c9478209caf8c",
+        "type": "group",
+        "z": "e945457b85248933",
+        "name": "Dashboard Legende",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "0c4b49ca7273310a",
+            "38fef16bdc183df6",
+            "fcd0162c4886fa22",
+            "77c921d2044a6350"
+        ],
+        "x": 794,
+        "y": 339,
+        "w": 272,
+        "h": 162
+    },
+    {
+        "id": "02116ec9e38245bf",
+        "type": "group",
+        "z": "e945457b85248933",
+        "name": "Exec et envoie des donées widget",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "5f837385c45be716",
+            "aa2c025abe71c727",
+            "2738cf75fa412719",
+            "1a3dcff257bdec27",
+            "fe7c9fe46ee8f9cd",
+            "fd5b50c21a3cd22e",
+            "c54409aa37678696",
+            "17bb7526a29b8169",
+            "0d2c4bae571e81f2",
+            "0ebadba5a23d8b5d",
+            "3df9310893d2c40d",
+            "7a08ded1ff372ab2"
+        ],
+        "x": 354,
+        "y": 619,
+        "w": 972,
+        "h": 282
+    },
+    {
+        "id": "c43c7492f37a955c",
+        "type": "group",
+        "z": "e945457b85248933",
+        "name": "Ecriture des données dnas les txt",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "90cb7cfbaf7a2068",
+            "14485b1f58356b8b",
+            "813e07d035e1e490",
+            "7f0455166606f1ce",
+            "9986c0eea50e02a6",
+            "f2e1261f09a8281f",
+            "3cbfe70a8073a254",
+            "a3e23e0f10965bca",
+            "2a8d801abc13116d",
+            "f68f22cd187a3bc5",
+            "dad98acc7a5b13bf",
+            "c0bdf82d368e4081",
+            "ecc80dd9fde443fd",
+            "28bfa6722c210b1b",
+            "83c2bb87fc03183f"
+        ],
+        "x": 1094,
+        "y": 279,
+        "w": 532,
+        "h": 322
+    },
+    {
+        "id": "cc87fc6cadd479f5",
+        "type": "group",
+        "z": "e945457b85248933",
+        "name": "Dashboard UI",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "30580e4cf82b13e8",
+            "2b900f5dd90189c3",
+            "76c681c8ed4acc53",
+            "aa0ef29257e8aaf2",
+            "3b7a1621d64ef92b"
+        ],
+        "x": 1354,
+        "y": 619,
+        "w": 252,
+        "h": 282
+    },
+    {
+        "id": "fcd0162c4886fa22",
+        "type": "ui_template",
+        "z": "e945457b85248933",
+        "g": "d18c9478209caf8c",
+        "group": "a93a4abb71234ddc",
+        "name": "",
+        "order": 4,
+        "width": "7",
+        "height": "5",
+        "format": "<table>\n    <!-- Temperature pour chaque heure\n    <tr>\n        <th>Heure</th>\n        <th>Température</th>\n    </tr>\n    \n    <tr ng-repeat=\"hourlyData in msg.payload.prem24H\">\n        <td>{{ hourlyData.time }}</td>\n        <td>{{ hourlyData.values.temperature }}</td>\n        <td>{{ hourlyData.values.weatherCode }}</td>\n    </tr> -->\n    <tr>\n        <td >Date</td>\n        <td>{{ msg.payload.dateFinale }}</td>\n    </tr>\n    <tr>\n        <td>Température moyenne</td>\n        <td>{{ msg.payload.temperatureMoyenne }} °C</td>\n    </tr>\n    <tr>\n        <td>Type Journée</td>\n        <td>{{ msg.payload.typeJournee }}</td>\n    </tr>\n    <tr>\n        <td>Details de la Journée</td>\n        <td>{{ msg.payload.weatherType }}</td>\n    </tr>\n    <tr>\n        <td>Ville</td>\n        <td>{{msg.payload.location.name}}</td>\n    </tr>\n</table>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 940,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0a04f23a5d4c3218",
+        "type": "http request",
+        "z": "e945457b85248933",
+        "g": "4003fb74d4c52910",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://api.tomorrow.io/v4/weather/forecast?location=Pau&timesteps=hourly&units=metric&apikey=UL7Ptx4JtCykSowhBDPv5q3zA70Xm0uq",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Accept",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            }
+        ],
+        "x": 650,
+        "y": 560,
+        "wires": [
+            [
+                "b668badd4ed3a22f"
+            ]
+        ]
+    },
+    {
+        "id": "b668badd4ed3a22f",
+        "type": "function",
+        "z": "e945457b85248933",
+        "g": "4003fb74d4c52910",
+        "name": "Récupère les donnée",
+        "func": "var jsonString = msg.payload;\nvar jsonData = JSON.parse(jsonString); //Conversion\n\n//toutes les données\nmsg.payload=jsonData \n//24 heures\nvar prem24H = jsonData.timelines.hourly.slice(0, 25); \njsonData.prem24H = prem24H;\n\n//Date du jour \nvar lol = jsonData.timelines.hourly[0].time\nvar dateJour = new Date(lol);\nvar dateFinale = dateJour.toISOString().split('T')[0];\njsonData.dateFinale = dateFinale;\n\n//Moyenne temperature\nvar temperatures = jsonData.prem24H.map(function (hourlyData) {\n    return hourlyData.values.temperature;\n});\nvar temperatureMoyenne = temperatures.reduce(function (total, temperature) {\n    return total + temperature;\n}, 0) / temperatures.length;\n\ntemperatureMoyenne = Math.round(temperatureMoyenne * 100) / 100;\njsonData.temperatureMoyenne = temperatureMoyenne;\n\n//Type de Journée\n\nvar typeJournee = \"\";\nif(temperatureMoyenne<16){\n    typeJournee= \"Humide\"\n} else if (temperatureMoyenne >= 16 && temperatureMoyenne > 25) {\n    typeJournee = \"Normale\"\n} else if (temperatureMoyenne >= 25 && temperatureMoyenne > 35) {\n    typeJournee = \"Sec\"\n}else{\n    typeJournee= \"Caniculaire\"\n}\n\njsonData.typeJournee = typeJournee;\n\n//Deatils du temps\nvar weatherCodes = jsonData.prem24H.map(function (hourlyData) {\n    return hourlyData.values.weatherCode;\n});\n\nvar maxWeatherCode = Math.max(...weatherCodes);\nvar weatherType = \"\";\nif (maxWeatherCode >= 1000 && maxWeatherCode < 2000) {\n    weatherType = \"Claire\";\n} else if (maxWeatherCode >= 2000 && maxWeatherCode < 3000) {\n    weatherType = \"Nugeux\";\n} else if (maxWeatherCode >= 5000 && maxWeatherCode < 6000) {\n    weatherType = \"Neige\";\n} else{\n    weatherType= \"Pluie/Orage\"\n}\njsonData.weatherType = weatherType;\n//J'ai ecris tout ce blabla mais on peut juste prendre la condition ou il y a la pluie pour arreter the irrigation\n\nreturn msg;\n\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 870,
+        "y": 560,
+        "wires": [
+            [
+                "8b51da7f8dacbdce"
+            ]
+        ]
+    },
+    {
+        "id": "90cb7cfbaf7a2068",
+        "type": "function",
+        "z": "e945457b85248933",
+        "g": "c43c7492f37a955c",
+        "name": "Récupère le temps",
+        "func": "var typeJournee2= \"\";\nif (msg.payload.typeJournee=\"Humide\"){\n    typeJournee2 = 2;\n} else if (msg.payload.typeJournee=\"Normale\") {\n    typeJournee2 = 1;\n} else if (msg.payload.typeJournee=\"Sec\") {\n    typeJournee2 = 3;\n} else{\n    typeJournee2 = 4;\n}\n\nmsg.payload = typeJournee2;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1270,
+        "y": 400,
+        "wires": [
+            [
+                "7f0455166606f1ce"
+            ]
+        ]
+    },
+    {
+        "id": "5f837385c45be716",
+        "type": "exec",
+        "z": "e945457b85248933",
+        "g": "02116ec9e38245bf",
+        "command": "./Valeurs ",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 640,
+        "y": 680,
+        "wires": [
+            [
+                "aa2c025abe71c727"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "aa2c025abe71c727",
+        "type": "split",
+        "z": "e945457b85248933",
+        "g": "02116ec9e38245bf",
+        "name": "",
+        "splt": ",",
+        "spltType": "str",
+        "arraySplt": "1",
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 840,
+        "y": 720,
+        "wires": [
+            [
+                "2738cf75fa412719"
+            ]
+        ]
+    },
+    {
+        "id": "2738cf75fa412719",
+        "type": "switch",
+        "z": "e945457b85248933",
+        "g": "02116ec9e38245bf",
+        "name": "",
+        "property": "parts.index",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 990,
+        "y": 720,
+        "wires": [
+            [
+                "1a3dcff257bdec27"
+            ],
+            [
+                "2b900f5dd90189c3"
+            ]
+        ],
+        "outputLabels": [
+            "Quantité",
+            "Fréquence"
+        ]
+    },
+    {
+        "id": "30580e4cf82b13e8",
+        "type": "ui_gauge",
+        "z": "e945457b85248933",
+        "g": "cc87fc6cadd479f5",
+        "name": "",
+        "group": "9325c7f78628da2f",
+        "order": 6,
+        "width": "6",
+        "height": 5,
+        "gtype": "wave",
+        "title": "Quantité d'eau",
+        "label": " Litres",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "6",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 1460,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "2b900f5dd90189c3",
+        "type": "ui_gauge",
+        "z": "e945457b85248933",
+        "g": "cc87fc6cadd479f5",
+        "name": "",
+        "group": "9325c7f78628da2f",
+        "order": 5,
+        "width": "6",
+        "height": 5,
+        "gtype": "donut",
+        "title": "Fréquence d'arrosage",
+        "label": " x/jour",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "2.5",
+        "colors": [
+            "#94e3fe",
+            "#94e3fe",
+            "#94e3fe"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 1480,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "14485b1f58356b8b",
+        "type": "ui_numeric",
+        "z": "e945457b85248933",
+        "g": "c43c7492f37a955c",
+        "name": "",
+        "label": "Type de tomate",
+        "tooltip": "",
+        "group": "9325c7f78628da2f",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": true,
+        "topic": "payload",
+        "topicType": "msg",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "3",
+        "step": 1,
+        "className": "",
+        "x": 1280,
+        "y": 520,
+        "wires": [
+            [
+                "f2e1261f09a8281f"
+            ]
+        ]
+    },
+    {
+        "id": "813e07d035e1e490",
+        "type": "ui_numeric",
+        "z": "e945457b85248933",
+        "g": "c43c7492f37a955c",
+        "name": "",
+        "label": "Type de sol",
+        "tooltip": "",
+        "group": "9325c7f78628da2f",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": true,
+        "topic": "payload",
+        "topicType": "msg",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "2",
+        "step": 1,
+        "className": "",
+        "x": 1290,
+        "y": 560,
+        "wires": [
+            [
+                "9986c0eea50e02a6"
+            ]
+        ]
+    },
+    {
+        "id": "7f0455166606f1ce",
+        "type": "file",
+        "z": "e945457b85248933",
+        "g": "c43c7492f37a955c",
+        "name": "",
+        "filename": "./Data/Temp.txt",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1480,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0c4b49ca7273310a",
+        "type": "ui_text",
+        "z": "e945457b85248933",
+        "g": "d18c9478209caf8c",
+        "group": "a93a4abb71234ddc",
+        "order": 1,
+        "width": 5,
+        "height": 2,
+        "name": "",
+        "label": "Type de tomate",
+        "format": "Tomate cœur de bœuf = 1<br>Tomate cerise = 2<br>Tomate ananas = 3<br>",
+        "layout": "col-center",
+        "className": "",
+        "style": false,
+        "font": "Palatino Linotype,Palatino,Book Antiqua,serif",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 960,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "38fef16bdc183df6",
+        "type": "ui_text",
+        "z": "e945457b85248933",
+        "g": "d18c9478209caf8c",
+        "group": "a93a4abb71234ddc",
+        "order": 2,
+        "width": 5,
+        "height": 2,
+        "name": "",
+        "label": "Type de sol",
+        "format": "Sol argileux = 1<br>Sol sablonneux = 2",
+        "layout": "col-center",
+        "className": "",
+        "style": false,
+        "font": "Times New Roman,Times,serif",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 950,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "e20923262b5adadb",
+        "type": "ui_button",
+        "z": "e945457b85248933",
+        "name": "",
+        "group": "9325c7f78628da2f",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Lancement",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 450,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1a3dcff257bdec27",
+        "type": "function",
+        "z": "e945457b85248933",
+        "g": "02116ec9e38245bf",
+        "name": "Diminue quantité",
+        "func": "if (msg.payload.weatherType =\"Pluie/Orage\"){\n    msg.payload = msg.payload - 1;\n} \n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1210,
+        "y": 660,
+        "wires": [
+            [
+                "30580e4cf82b13e8"
+            ]
+        ]
+    },
+    {
+        "id": "76c681c8ed4acc53",
+        "type": "ui_text",
+        "z": "e945457b85248933",
+        "g": "cc87fc6cadd479f5",
+        "group": "9325c7f78628da2f",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Pluie",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 1430,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "fd5b50c21a3cd22e",
+        "type": "function",
+        "z": "e945457b85248933",
+        "g": "02116ec9e38245bf",
+        "name": "Risque de pluie",
+        "func": "if (msg.payload.weatherType =\"Pluie/Orage\"){\n    msg.payload = \"Pluie annoncée, quantité diminuée de 1L.\";\n} \nelse {\n    msg.payload = \"\";\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1220,
+        "y": 780,
+        "wires": [
+            [
+                "76c681c8ed4acc53"
+            ]
+        ]
+    },
+    {
+        "id": "3cbfe70a8073a254",
+        "type": "function",
+        "z": "e945457b85248933",
+        "g": "c43c7492f37a955c",
+        "name": "Capteur d'humidité",
+        "func": "// Définir l'intervalle et d'autres paramètres\nlet intervalleMin = 10;\nlet intervalleMax = 100;\n\n// Fonction pour générer des chiffres sinusoïdaux avec des sauts aléatoires\nfunction humidite() {\n    let valeur = intervalleMin;\n    let croissance = true;\n    let cpt = 0;\n\n    // Fonction pour générer une valeur sinusoïdale avec saut aléatoire\n    function valeurSinusoidale() {\n        const sautAleatoire = Math.random() * 8 + 2;\n\n        if (croissance) {\n            valeur += sautAleatoire;\n        } else {\n            valeur -= sautAleatoire;\n        }\n        valeur = Math.max(intervalleMin, Math.min(intervalleMax, valeur));\n        cpt++;\n        //console.log(\"cpt2 : \" + cpt);\n\n        if (cpt == 8) {\n            croissance = !croissance;\n            cpt = 0;\n        }\n\n        return Math.floor(valeur);\n    }\n\n    return valeurSinusoidale;\n}\n\n// Utilisation de la fonction pour générer des chiffres sinusoïdaux avec des sauts aléatoires\nconst generateur = humidite();\n\n// Générer les chiffres 24 fois\nlet somme = 0;\nfor (let i = 0; i < 24; i++) {\n    somme += generateur();\n}\n\n// Calculer la moyenne\nlet moyenne = somme / 24;\n\n// Envoyer la moyenne dans msg.payload\nmsg.payload = Math.floor(moyenne).toString();\n\n// Le résultat est maintenant disponible dans msg.payload\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1270,
+        "y": 360,
+        "wires": [
+            [
+                "a3e23e0f10965bca",
+                "2a8d801abc13116d",
+                "77498c5d5b549512"
+            ]
+        ]
+    },
+    {
+        "id": "8b51da7f8dacbdce",
+        "type": "link out",
+        "z": "e945457b85248933",
+        "g": "4003fb74d4c52910",
+        "name": "donnee_meteo",
+        "mode": "link",
+        "links": [
+            "c54409aa37678696",
+            "fe7c9fe46ee8f9cd",
+            "e1e9b83139d6c3e2",
+            "378bcf8fd25f9e4e",
+            "256239b1921bf419",
+            "c86581343d1bcf22",
+            "f68f22cd187a3bc5",
+            "dad98acc7a5b13bf",
+            "77c921d2044a6350"
+        ],
+        "x": 1025,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "fe7c9fe46ee8f9cd",
+        "type": "link in",
+        "z": "e945457b85248933",
+        "g": "02116ec9e38245bf",
+        "name": "donnee_meteo",
+        "links": [
+            "8b51da7f8dacbdce"
+        ],
+        "x": 1025,
+        "y": 660,
+        "wires": [
+            [
+                "1a3dcff257bdec27"
+            ]
+        ]
+    },
+    {
+        "id": "c54409aa37678696",
+        "type": "link in",
+        "z": "e945457b85248933",
+        "g": "02116ec9e38245bf",
+        "name": "donnee_meteo",
+        "links": [
+            "8b51da7f8dacbdce"
+        ],
+        "x": 1025,
+        "y": 780,
+        "wires": [
+            [
+                "fd5b50c21a3cd22e"
+            ]
+        ]
+    },
+    {
+        "id": "fb5f6ce08196f055",
+        "type": "comment",
+        "z": "e945457b85248933",
+        "name": "Modifications",
+        "info": "\n- Ajout d'un dossier pour les txt \n    -> ./Data/\n    -> Modification du fichier C\n- Ajout des liens virtuels\n- Ajout du capteur d'humidité",
+        "x": 610,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "aa0ef29257e8aaf2",
+        "type": "ui_text",
+        "z": "e945457b85248933",
+        "g": "cc87fc6cadd479f5",
+        "group": "9325c7f78628da2f",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Humidité",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 1440,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "17bb7526a29b8169",
+        "type": "function",
+        "z": "e945457b85248933",
+        "g": "02116ec9e38245bf",
+        "name": "Humidité du sol",
+        "func": "if (msg.payload <= 30 ){\n    msg.payload = \"Sol sec, fréquence augmentée de 1x/jour.\";\n} \nelse if (msg.payload >= 70) {\n    msg.payload = \"Sol humide, fréquence réduite de 1x/jour.\";\n} \nelse {\n    msg.payload = \"\";\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1220,
+        "y": 860,
+        "wires": [
+            [
+                "aa0ef29257e8aaf2"
+            ]
+        ]
+    },
+    {
+        "id": "9986c0eea50e02a6",
+        "type": "file",
+        "z": "e945457b85248933",
+        "g": "c43c7492f37a955c",
+        "name": "",
+        "filename": "./Data/Sol.txt",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1470,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f2e1261f09a8281f",
+        "type": "file",
+        "z": "e945457b85248933",
+        "g": "c43c7492f37a955c",
+        "name": "",
+        "filename": "./Data/Tomate.txt",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1490,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a3e23e0f10965bca",
+        "type": "file",
+        "z": "e945457b85248933",
+        "g": "c43c7492f37a955c",
+        "name": "",
+        "filename": "./Data/Humidite.txt",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1490,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2a8d801abc13116d",
+        "type": "link out",
+        "z": "e945457b85248933",
+        "g": "c43c7492f37a955c",
+        "name": "humidite",
+        "mode": "link",
+        "links": [
+            "0d2c4bae571e81f2"
+        ],
+        "x": 1415,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "0d2c4bae571e81f2",
+        "type": "link in",
+        "z": "e945457b85248933",
+        "g": "02116ec9e38245bf",
+        "name": "humidite",
+        "links": [
+            "2a8d801abc13116d",
+            "83c2bb87fc03183f"
+        ],
+        "x": 1025,
+        "y": 860,
+        "wires": [
+            [
+                "17bb7526a29b8169"
+            ]
+        ]
+    },
+    {
+        "id": "f68f22cd187a3bc5",
+        "type": "link in",
+        "z": "e945457b85248933",
+        "g": "c43c7492f37a955c",
+        "name": "donnee_meteo",
+        "links": [
+            "8b51da7f8dacbdce"
+        ],
+        "x": 1135,
+        "y": 360,
+        "wires": [
+            [
+                "3cbfe70a8073a254"
+            ]
+        ]
+    },
+    {
+        "id": "dad98acc7a5b13bf",
+        "type": "link in",
+        "z": "e945457b85248933",
+        "g": "c43c7492f37a955c",
+        "name": "donnee_meteo",
+        "links": [
+            "8b51da7f8dacbdce"
+        ],
+        "x": 1135,
+        "y": 400,
+        "wires": [
+            [
+                "90cb7cfbaf7a2068"
+            ]
+        ]
+    },
+    {
+        "id": "77c921d2044a6350",
+        "type": "link in",
+        "z": "e945457b85248933",
+        "g": "d18c9478209caf8c",
+        "name": "donnee_meteo",
+        "links": [
+            "8b51da7f8dacbdce"
+        ],
+        "x": 835,
+        "y": 460,
+        "wires": [
+            [
+                "fcd0162c4886fa22"
+            ]
+        ]
+    },
+    {
+        "id": "c0bdf82d368e4081",
+        "type": "function",
+        "z": "e945457b85248933",
+        "g": "c43c7492f37a955c",
+        "name": "Compteur de jour",
+        "func": "context.global.count = context.global.count || 0;\n\ncontext.global.count++;\n\nmsg.payload = context.global.count;\n\n\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1270,
+        "y": 480,
+        "wires": [
+            [
+                "ecc80dd9fde443fd",
+                "83c2bb87fc03183f"
+            ]
+        ]
+    },
+    {
+        "id": "ecc80dd9fde443fd",
+        "type": "file",
+        "z": "e945457b85248933",
+        "g": "c43c7492f37a955c",
+        "name": "",
+        "filename": "./Data/Horodatage.txt",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1500,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "28bfa6722c210b1b",
+        "type": "link in",
+        "z": "e945457b85248933",
+        "g": "c43c7492f37a955c",
+        "name": "Lancement",
+        "links": [
+            "5cdcb708abd9425f"
+        ],
+        "x": 1135,
+        "y": 480,
+        "wires": [
+            [
+                "c0bdf82d368e4081"
+            ]
+        ]
+    },
+    {
+        "id": "3b7a1621d64ef92b",
+        "type": "ui_text",
+        "z": "e945457b85248933",
+        "g": "cc87fc6cadd479f5",
+        "group": "9325c7f78628da2f",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Croissance",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 1450,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "0ebadba5a23d8b5d",
+        "type": "function",
+        "z": "e945457b85248933",
+        "g": "02116ec9e38245bf",
+        "name": "Phase de croissance",
+        "func": "if (msg.payload > 42 && msg.payload <= 77){\n    msg.payload = \"Phase de floraison, fréquence augmentée de 1xjour.\";\n} \nelse {\n    msg.payload = \"\";\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1200,
+        "y": 820,
+        "wires": [
+            [
+                "3b7a1621d64ef92b"
+            ]
+        ]
+    },
+    {
+        "id": "83c2bb87fc03183f",
+        "type": "link out",
+        "z": "e945457b85248933",
+        "g": "c43c7492f37a955c",
+        "name": "jour",
+        "mode": "link",
+        "links": [
+            "0d2c4bae571e81f2",
+            "3df9310893d2c40d"
+        ],
+        "x": 1415,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "3df9310893d2c40d",
+        "type": "link in",
+        "z": "e945457b85248933",
+        "g": "02116ec9e38245bf",
+        "name": "jour",
+        "links": [
+            "83c2bb87fc03183f"
+        ],
+        "x": 1025,
+        "y": 820,
+        "wires": [
+            [
+                "0ebadba5a23d8b5d"
+            ]
+        ]
+    },
+    {
+        "id": "77498c5d5b549512",
+        "type": "debug",
+        "z": "e945457b85248933",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 1460,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "35fbf5d03eb8fe61",
+        "type": "inject",
+        "z": "e945457b85248933",
+        "g": "4003fb74d4c52910",
+        "name": "Horodatage",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 470,
+        "y": 560,
+        "wires": [
+            [
+                "0a04f23a5d4c3218"
+            ]
+        ]
+    },
+    {
+        "id": "7a08ded1ff372ab2",
+        "type": "inject",
+        "z": "e945457b85248933",
+        "g": "02116ec9e38245bf",
+        "name": "Lancement",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 470,
+        "y": 680,
+        "wires": [
+            [
+                "5f837385c45be716"
+            ]
+        ]
+    },
+    {
+        "id": "e2a0bba54cf948c2",
+        "type": "ui_spacer",
+        "z": "e945457b85248933",
+        "name": "spacer",
+        "group": "a93a4abb71234ddc",
+        "order": 3,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "f9e0e7a1b6ec6d72",
+        "type": "ui_spacer",
+        "z": "e945457b85248933",
+        "name": "spacer",
+        "group": "9325c7f78628da2f",
+        "order": 4,
+        "width": "10",
+        "height": "1"
+    },
+    {
+        "id": "a93a4abb71234ddc",
+        "type": "ui_group",
+        "name": "Légende",
+        "tab": "fe7117821b4fa179",
+        "order": 1,
+        "disp": true,
+        "width": "7",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "9325c7f78628da2f",
+        "type": "ui_group",
+        "name": "UI",
+        "tab": "fe7117821b4fa179",
+        "order": 3,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "fe7117821b4fa179",
+        "type": "ui_tab",
+        "name": "Arrosage automatique",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
